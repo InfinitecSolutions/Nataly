@@ -315,16 +315,12 @@
         .hero-name {
             font-family: 'Great Vibes', cursive;
             font-size: 5rem;
-            color: var(--ocean-blue);
+            color: white;
             margin-bottom: 30px;
             opacity: 0;
             animation: fadeInUp 1s ease forwards;
             animation-delay: 0.9s;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-            background: linear-gradient(135deg, var(--champagne), var(--pink-accent));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
             position: relative;
             display: inline-block;
         }
@@ -413,6 +409,15 @@
             background: linear-gradient(135deg, var(--primary-color), var(--ocean-blue));
             transform: translateY(-3px) scale(1.05);
             box-shadow: 0 8px 25px rgba(30, 144, 255, 0.4);
+        }
+
+        .btn-map i {
+            animation: pulse-icon 2s infinite;
+        }
+
+        @keyframes pulse-icon {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
         }
 
         .scroll-indicator {
@@ -1744,11 +1749,11 @@
                 `👥 Número de invitados: ${guests}\n` +
                 `✅ Asistencia: ${attendance}\n` +
                 `💬 Mensaje: ${message}\n\n` +
-                `*¡Gracias por confirmar!* 💎`;
+                `*¡Gracias por confirmar!* 🎉`;
             
             // WhatsApp number for Mexico: 5530528999
             // Format: +52 (country code) + number (without leading 0)
-            const phoneNumber = '525530528999';
+            const phoneNumber = '52553028999';
             
             // Create WhatsApp URL
             const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(whatsappMessage)}`;
