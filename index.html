@@ -30,6 +30,8 @@
             --bg-light: #F0F8FF; /* Azul alice */
             --bg-overlay: rgba(0, 0, 0, 0.7);
             --ocean-blue: #1E90FF; /* Azul océano */
+            --pink-accent: #FFB6C1; /* Rosa pastel */
+            --champagne: #F7E7CE; /* Color champagne */
         }
 
         body {
@@ -38,26 +40,65 @@
             background: #fff;
             color: var(--text-dark);
             position: relative;
+            background-image: 
+                linear-gradient(rgba(255, 182, 193, 0.1), rgba(255, 228, 225, 0.1)),
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100%" height="100" fill="white"/><path d="M0,50 Q25,30 50,50 T100,50" stroke="rgba(255,182,193,0.2)" stroke-width="0.5" fill="none"/><path d="M0,30 Q25,10 50,30 T100,30" stroke="rgba(255,228,225,0.2)" stroke-width="0.5" fill="none"/><circle cx="25" cy="25" r="3" fill="rgba(255,182,193,0.3)"/><circle cx="75" cy="75" r="3" fill="rgba(255,228,225,0.3)"/><circle cx="50" cy="10" r="2" fill="rgba(255,182,193,0.2)"/><circle cx="50" cy="90" r="2" fill="rgba(255,228,225,0.2)"/></svg>');
+            background-size: 200px 200px;
+            background-repeat: repeat;
         }
 
-        /* Flower Background Pattern */
-        body::before {
-            content: '';
+        /* Confetti Animation */
+        .confetti-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
-                radial-gradient(circle at 20% 30%, rgba(135, 206, 235, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(70, 130, 180, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 40% 80%, rgba(230, 243, 255, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 60% 20%, rgba(30, 144, 255, 0.1) 0%, transparent 50%);
-            background-size: 300px 300px, 400px 400px, 250px 250px, 350px 350px;
-            background-position: 0 0, 100px 100px, 50px 50px, 150px 150px;
-            background-repeat: repeat;
             pointer-events: none;
-            z-index: -1;
+            z-index: 9999;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: var(--primary-color);
+            animation: confetti-fall linear forwards;
+        }
+
+        .confetti:nth-child(odd) {
+            background: var(--secondary-color);
+            width: 8px;
+            height: 8px;
+        }
+
+        .confetti:nth-child(3n) {
+            background: var(--ocean-blue);
+            width: 12px;
+            height: 12px;
+        }
+
+        .confetti:nth-child(4n) {
+            background: var(--pink-accent);
+            width: 6px;
+            height: 6px;
+        }
+
+        .confetti:nth-child(5n) {
+            background: var(--champagne);
+            width: 9px;
+            height: 9px;
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
         }
 
         /* Loading Screen */
@@ -152,11 +193,11 @@
         }
 
         .logo::before {
-            content: '💎';
+            content: '👑';
             position: absolute;
             top: -10px;
             right: -25px;
-            font-size: 1rem;
+            font-size: 1.5rem;
         }
 
         .nav-menu {
@@ -235,9 +276,14 @@
         }
 
         .hero-crown {
-            font-size: 4rem;
+            font-size: 5rem;
             margin-bottom: 20px;
             animation: float 3s ease-in-out infinite;
+            background: linear-gradient(135deg, var(--champagne), var(--pink-accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 20px rgba(247, 231, 206, 0.3);
         }
 
         @keyframes float {
@@ -268,13 +314,33 @@
 
         .hero-name {
             font-family: 'Great Vibes', cursive;
-            font-size: 4.5rem;
+            font-size: 5rem;
             color: var(--ocean-blue);
             margin-bottom: 30px;
             opacity: 0;
             animation: fadeInUp 1s ease forwards;
             animation-delay: 0.9s;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            background: linear-gradient(135deg, var(--champagne), var(--pink-accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero-name::after {
+            content: 'Nataly';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--ocean-blue), var(--primary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            z-index: -1;
         }
 
         .hero-date {
@@ -333,20 +399,20 @@
         }
 
         .btn-map {
-            background: white;
-            color: var(--primary-color);
+            background: linear-gradient(135deg, var(--ocean-blue), var(--primary-color));
+            color: white;
             font-size: 0.9rem;
-            padding: 10px 20px;
+            padding: 12px 25px;
             margin-top: 15px;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
 
         .btn-map:hover {
-            background: var(--ocean-blue);
-            color: white;
-            transform: translateY(-2px);
+            background: linear-gradient(135deg, var(--primary-color), var(--ocean-blue));
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(30, 144, 255, 0.4);
         }
 
         .scroll-indicator {
@@ -801,7 +867,7 @@
 
         .dresscode-note {
             background: white;
-            padding: 20px;
+            padding: 25px;
             border-radius: 15px;
             margin-top: 30px;
             border-left: 4px solid var(--primary-color);
@@ -811,6 +877,12 @@
         .dresscode-note p {
             color: var(--text-dark);
             font-weight: 500;
+            line-height: 1.6;
+        }
+
+        .dresscode-note .highlight {
+            font-weight: 700;
+            color: var(--secondary-color);
         }
 
         /* RSVP Section */
@@ -948,6 +1020,47 @@
         .footer-text {
             color: rgba(255, 255, 255, 0.7);
             font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .footer-contact {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 1.1rem;
+            margin-top: 15px;
+            color: var(--pink-accent);
+            font-weight: 500;
+        }
+
+        .footer-contact i {
+            font-size: 1.3rem;
+            margin-right: 8px;
+        }
+
+        .footer-contact a {
+            color: var(--pink-accent);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-contact a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--pink-accent);
+            transition: width 0.3s ease;
+        }
+
+        .footer-contact a:hover::after {
+            width: 100%;
         }
 
         /* Music Player */
@@ -1162,6 +1275,9 @@
     </style>
 </head>
 <body>
+    <!-- Confetti Container -->
+    <div class="confetti-container" id="confettiContainer"></div>
+
     <!-- Floating Flowers -->
     <div class="floating-flower" style="left: 10%; animation-delay: 0s;">💎</div>
     <div class="floating-flower" style="left: 30%; animation-delay: 5s;">💎</div>
@@ -1202,7 +1318,7 @@
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="hero-content">
-            <div class="hero-crown">💎</div>
+            <div class="hero-crown">👑</div>
             <p class="hero-subtitle">Te invito a celebrar</p>
             <h1 class="hero-title">16 Años</h1>
             <h2 class="hero-name">Nataly</h2>
@@ -1322,8 +1438,8 @@
                     <p>Parroquia San Pedro Tlahuac</p>
                     <span class="highlight">16:45 hrs</span>
                     <button class="btn-map" onclick="openMap('church')">
-                        <i class="fas fa-map-marker-alt"></i>
-                        Ver en Mapa
+                        <i class="fas fa-map-marked-alt"></i>
+                        <span>📍 Cómo llegar</span>
                     </button>
                 </div>
                 <div class="event-card" data-aos="fade-up" data-aos-delay="200">
@@ -1333,8 +1449,8 @@
                     <p>Barrio La Asunción, Tlahuac</p>
                     <span class="highlight">CP 13000</span>
                     <button class="btn-map" onclick="openMap('reception')">
-                        <i class="fas fa-map-marker-alt"></i>
-                        Ver en Mapa
+                        <i class="fas fa-map-marked-alt"></i>
+                        <span>📍 Cómo llegar</span>
                     </button>
                 </div>
                 <div class="event-card" data-aos="fade-up" data-aos-delay="300">
@@ -1351,30 +1467,30 @@
     <!-- Dress Code Section -->
     <section class="dresscode-section" id="dresscode">
         <div class="dresscode-container">
-            <h2 class="section-title" data-aos="fade-up">Dress Code</h2>
+            <h2 class="section-title" data-aos="fade-up">Código de Vestimenta</h2>
             <p data-aos="fade-up" data-aos-delay="100">Tu elegancia hará brillar esta noche</p>
             <div class="dresscode-grid">
                 <div class="dresscode-item" data-aos="fade-up" data-aos-delay="200">
                     <i class="fas fa-user-tie"></i>
                     <h4>Caballeros</h4>
                     <p>Traje formal o Smoking</p>
-                    <p>Corbata o Pajarita</p>
+                    <p><strong>Corbata o Pajarita</strong></p>
                 </div>
                 <div class="dresscode-item" data-aos="fade-up" data-aos-delay="300">
                     <i class="fas fa-female"></i>
                     <h4>Damas</h4>
                     <p>Vestido de gala largo</p>
-                    <p>Evitar tonos blancos</p>
+                    <p>Te sugerimos colores cálidos</p>
                 </div>
                 <div class="dresscode-item" data-aos="fade-up" data-aos-delay="400">
                     <i class="fas fa-palette"></i>
                     <h4>Colores</h4>
-                    <p>Tonos azules y celestes</p>
+                    <p>Tonos rosados y pasteles</p>
                     <p>Toques de plata</p>
                 </div>
             </div>
             <div class="dresscode-note" data-aos="fade-up" data-aos-delay="500">
-                <p><i class="fas fa-info-circle"></i> Por favor, usar tonos azules para mantener la armonía de la celebración</p>
+                <p><i class="fas fa-heart"></i> Para mantener la armonía de nuestra celebración, te amablemente pedimos <span class="highlight">evitar tonos azules</span>. Queremos que todos brillemos con colores cálidos y alegres que complementen nuestro tema. ¡Gracias por tu comprensión! 💕</p>
             </div>
         </div>
     </section>
@@ -1437,9 +1553,12 @@
                 <a href="#"><i class="fab fa-pinterest"></i></a>
             </div>
             <p class="footer-text">
-                © 2025 16 Años Nataly. Todos los derechos reservados.<br>
-                Hecho con 💎 para mi celebración especial
+                © 2025 16 Años Nataly. Todos los derechos reservados.
             </p>
+            <div class="footer-contact">
+                <i class="fas fa-heart"></i>
+                <a href="tel:5530528999">Hecho con ❤️ para mi celebración especial</a>
+            </div>
         </div>
     </footer>
 
@@ -1461,16 +1580,51 @@
     <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
+        // Create confetti animation on page load
+        function createConfetti() {
+            const container = document.getElementById('confettiContainer');
+            const colors = ['#87CEEB', '#4682B4', '#1E90FF', '#FFB6C1', '#F7E7CE'];
+            
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.animationDelay = Math.random() * 3 + 's';
+                confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                container.appendChild(confetti);
+            }
+            
+            // Remove confetti after scrolling to about section
+            let aboutSectionReached = false;
+            const scrollHandler = () => {
+                const aboutSection = document.getElementById('about');
+                const rect = aboutSection.getBoundingClientRect();
+                
+                if (rect.top < window.innerHeight && !aboutSectionReached) {
+                    aboutSectionReached = true;
+                    setTimeout(() => {
+                        container.innerHTML = '';
+                    }, 1000);
+                    window.removeEventListener('scroll', scrollHandler);
+                }
+            };
+            
+            window.addEventListener('scroll', scrollHandler);
+        }
+
         // Initialize AOS
         AOS.init({
             duration: 1000,
             once: true
         });
 
-        // Loading Screen
+        // Loading Screen with confetti
         window.addEventListener('load', () => {
             setTimeout(() => {
                 document.getElementById('loadingScreen').classList.add('hidden');
+                // Trigger confetti animation
+                createConfetti();
                 // Auto-play music after loading screen
                 const backgroundMusic = document.getElementById('backgroundMusic');
                 backgroundMusic.play().catch(e => console.log('Auto-play prevented:', e));
@@ -1592,9 +1746,9 @@
                 `💬 Mensaje: ${message}\n\n` +
                 `*¡Gracias por confirmar!* 💎`;
             
-            // WhatsApp number for Mexico: 5563328355
+            // WhatsApp number for Mexico: 5530528999
             // Format: +52 (country code) + number (without leading 0)
-            const phoneNumber = '525563328355';
+            const phoneNumber = '525530528999';
             
             // Create WhatsApp URL
             const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(whatsappMessage)}`;
